@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CLINIQ - Test Catalogue</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      font-size: 13px;
+    }
+
+    .top-navbar {
+      background-color: #5d77a6;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 0;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      width: 200px;
+      flex-shrink: 0;
+    }
+    .navbar-brand img {
+      height: 28px;
+      width: 28px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+    .navbar-search {
+      flex: 1;
+      max-width: 2000px;
+    }
+
+    .search-display {
+     width: 100%;
+     height: 32px;
+     border-radius: 20px;
+     background: #ffffff;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      width: 200px;
+      height: calc(100vh - 52px);
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 99;
+      border-right: 1px solid #e4eaf2;
+    }
+
+    .user-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 14px 12px 12px;
+      background: #5d77a6;
+      border-radius: 10px;
+      padding: 9px 11px;
+    }
+    .user-avatar {
+      background: #ffffff;
+      color: #5d77a6;
+      font-weight: 700;
+      font-size: 0.78rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .user-name { color: #ffffff; font-weight: 600; font-size: 0.78rem; line-height: 1.3; }
+    .user-role { color: rgba(255,255,255,0.75); font-size: 0.67rem; }
+
+    .nav-section-pill {
+      display: inline-block;
+      background: #5873a1;
+      color: #ffffff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      border-radius: 20px;
+      padding: 3px 14px;
+      margin: 8px 12px 4px;
+    }
+
+    .nav-link-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      color: #5873a1;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.12s;
+    }
+    .nav-link-item:hover { background: #ffffff; color: #5873a1; }
+    .nav-link-item i { font-size: 1.05rem; width: 20px; color: #5873a1; }
+
+    .sign-out-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 12px 6px;
+      background: #5873a1;
+      border-radius: 20px;
+      padding: 7px 14px;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      width: fit-content;
+    }
+    .sign-out-btn:hover { background: #5873a1; color: #ffffff; }
+    .sign-out-btn i { color: #ffffff; font-size: 0.9rem; }
+
+    .sidebar-logo-bottom {
+      margin-top: auto;
+      display: flex;
+      justify-content: center;
+      padding: 16px 0 18px;
+    }
+    .sidebar-logo-bottom img {
+      height: 60px;
+      width: 60px;
+      object-fit: contain;
+    }
+
+    .main-wrapper {
+      margin-left: 200px;
+      margin-top: 52px;
+      padding: 26px 28px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .page-title { font-size: 1.45rem; font-weight: 700; color:#000000; }
+    .page-subtitle { color: #000000; font-size: 0.78rem; margin-top: 3px; }
+
+    .btn-export-csv {
+      background: #ffffff;
+      border: 1.5px solid #c9d3e0;
+      color: #000000;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+    .btn-print-batch {
+      background: #758ebc;
+      border: none;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .filter-bar { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; }
+    .search-wrap { flex: 1; position: relative; }
+    .search-wrap i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #000000; font-size: 0.9rem; }
+    .search-wrap input {
+      width: 100%;
+      border: 1.5px solid #000000;
+      border-radius: 8px;
+      padding: 7px 12px 7px 32px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      background: #ffffff;
+      outline: none;
+      color: #000000;
+    }
+    .filter-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1.5px solid #000000;
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #545454;
+      cursor: pointer;
+    }
+    .filter-dropdown i { font-size: 0.8rem; color: #000000; 
+    }
+
+    .table-card { background: #ffffff; border-radius: 12px; border: 1px solid #c9c9c6; overflow: hidden; }
+    .table-card table { width: 100%; border-collapse: collapse; }
+ 
+    .table-card thead th {
+      color: #000000; font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.4px;
+      padding: 14px 16px; border-bottom: 1.5px solid #c9c9c6;
+      background: #ffffff; text-align: center;
+    }
+ 
+    .table-card tbody td {
+      padding: 13px 16px; font-size: 0.78rem; color: #5d77a6;
+      border-bottom: 1px solid #ffffff;
+      vertical-align: middle; text-align: center;
+    }
+    .table-card tbody tr:last-child td { border-bottom: none; }
+    .table-card tbody tr:hover { background: #ffffff; 
+    }
+ 
+    .req-id-link { color: #6082b6; font-weight: 600; font-size: 0.78rem; text-decoration: none; }
+    .req-id-link:hover { text-decoration: underline; 
+    }
+ 
+    td.td-patient { text-align: left; }
+    .patient-main { font-weight: 600; font-size: 0.78rem; color: #000000; }
+    .patient-sub  { font-size: 0.68rem; color: #545454; margin-top: 1px; 
+    }
+ 
+    .priority-text { font-size: 0.78rem; color: #545454; 
+    }
+ 
+    .sts-stat    { background:#dd837e; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:700; display:inline-block; }
+    .sts-urgent  { background:#ffcf60; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:700; display:inline-block; }
+    .sts-routine { background:#456fb0; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:700; display:inline-block; }
+ 
+    .tat-pending    { background:#ff5757; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:600; display:inline-block; }
+    .tat-processing { background:#456fb0; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:600; display:inline-block; }
+    .tat-completed  { background:#2f6a4d; color:#ffffff; padding:4px 14px; border-radius:20px; font-size:0.7rem; font-weight:600; display:inline-block; }
+ 
+    .actions-wrap { display: flex; gap: 5px; justify-content: center; align-items: center; }
+    .act-start    { background:#5873a1; color:#ffffff; border:none; border-radius:6px; padding:5px 13px; font-family:'Poppins',sans-serif; font-size:0.72rem; font-weight:500; cursor:pointer; }
+    .act-view     { background:#c9c9c6; color:#000000; border:none; border-radius:6px; padding:5px 13px; font-family:'Poppins',sans-serif; font-size:0.72rem; font-weight:500; cursor:pointer; }
+    .act-complete { background:#75bb98; color:#ffffff; border:none; border-radius:6px; padding:5px 11px; font-family:'Poppins',sans-serif; font-size:0.72rem; font-weight:500; cursor:pointer; }
+    .act-pdf      { background:#ffffff; color:#000000; border:1.5px solid #000000; border-radius:6px; padding:5px 13px; font-family:'Poppins',sans-serif; font-size:0.72rem; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:5px; }
+    .act-pdf i    { font-size: 0.8rem; }
+
+    .pagination-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; border-top: 1.5px solid #c9c9c6;
+      font-size: 0.76rem; color: #000000;
+    }
+    .pg-btns { display: flex; gap: 4px; }
+    .pg-btn {
+      width: 30px; height: 30px; border-radius: 7px; border: 1.5px solid #000000;
+      background: #ffffff; color: #3a4a5c; font-size: 0.76rem;
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .pg-btn.active { background: #758ebc; color: #ffffff; border-color: #000000; }
+    .pg-btn:hover:not(.active) { background: #ffffff; }
+  </style>
+</head>
+<body>
+ 
+<div class="top-navbar">
+  <div class="navbar-brand">
+    <img src="logo.png" alt="logo"/>
+    CLINIQ
+  </div>
+  <div class="navbar-search">
+    <div class="search-display"></div>
+  </div>
+</div>
+ 
+<div class="sidebar">
+  <div class="user-card">
+    <div class="user-avatar">MC</div>
+    <div>
+      <div class="user-name">Curitana, MC</div>
+      <div class="user-role">Lab Administrator</div>
+    </div>
+  </div>
+  <span class="nav-section-pill">Overview</span>
+  <a href="#" class="nav-link-item"><img src="business.png" alt="dashboard icon" style="width:16px; height:16px;"> Dashboard</a>
+  <span class="nav-section-pill">Management</span>
+  <a href="#" class="nav-link-item"><img src="search.png" alt="dashboard icon" style="width:16px; height:16px;">Test Catalog</a>
+  <a href="#" class="nav-link-item"><img src="flask.png" alt="dashboard icon" style="width:16px; height:16px;">Lab Request</a>
+  <a href="#" class="nav-link-item"><img src="invoice.png" alt="dashboard icon" style="width:16px; height:16px;">Billing</a>
+  <span class="nav-section-pill">Reports</span>
+  <a href="#" class="nav-link-item"><img src="analysis.png" alt="dashboard icon" style="width:16px; height:16px;">Analytics</a>
+  <a href="#" class="sign-out-btn">
+  <img src="logout.png" alt="sign out" style="width:16px; height:16px; filter: brightness(0) invert(1);"> Sign Out
+  </a>
+  <div class="sidebar-logo-bottom">
+    <img src="logo.png" alt="logo"/>
+  </div>
+</div>
+ 
+<div class="main-wrapper">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Test Catalogue</div>
+      <div class="page-subtitle">Manage diagnostic tests, pricing, and turnaround times</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn-export-csv">Export CSV</button>
+      <button class="btn-print-batch">Print Batch</button>
+    </div>
+  </div>
+ 
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i class="bi bi-search"></i>
+      <input type="text" placeholder="Search test by name or code...."/>
+    </div>
+    <button class="filter-dropdown">All Priorities <i class="bi bi-chevron-down"></i></button>
+    <button class="filter-dropdown">Today <i class="bi bi-chevron-down"></i></button>
+  </div>
+ 
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Req, ID</th>
+          <th>Submitted</th>
+          <th>Patient</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>TAT Left</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        <tr>
+          <td><a href="#" class="req-id-link">REQ-26-0001</a></td>
+          <td>Apr 9, 8:02 AM</td>
+          <td class="td-patient">
+            <div class="patient-main">Curitana, Maria Antoinette</div>
+            <div class="patient-sub">PT-20260001</div>
+          </td>
+          <td><span class="priority-text">CBC, UA, LIPID</span></td>
+          <td><span class="sts-stat">STAT</span></td>
+          <td><span class="tat-pending">Pending</span></td>
+          <td><div class="actions-wrap"><button class="act-start">Start</button><button class="act-view">View</button></div></td>
+        </tr>
+       
+        <tr>
+          <td><a href="#" class="req-id-link">REQ-26-0001</a></td>
+          <td>Apr 9, 8:02 AM</td>
+          <td class="td-patient">
+            <div class="patient-main">Yu, Katarina</div>
+            <div class="patient-sub">PT-0000002</div>
+          </td>
+          <td><span class="priority-text">CBC, UA, LIPID</span></td>
+          <td><span class="sts-urgent">Urgent</span></td>
+          <td><span class="tat-processing">Processing</span></td>
+          <td><div class="actions-wrap"><button class="act-complete">Complete</button><button class="act-view">View</button></div></td>
+        </tr>
+       
+        <tr>
+          <td><a href="#" class="req-id-link">REQ-26-0001</a></td>
+          <td>Apr 9, 8:02 AM</td>
+          <td class="td-patient">
+            <div class="patient-main">Kim, Jennie Rubyjane</div>
+            <div class="patient-sub">PY-0000003</div>
+          </td>
+          <td><span class="priority-text">CBC, UA, LIPID</span></td>
+          <td><span class="sts-routine">Routine</span></td>
+          <td><span class="tat-pending">Pending</span></td>
+          <td><div class="actions-wrap"><button class="act-start">Start</button><button class="act-view">View</button></div></td>
+        </tr>
+    
+        <tr>
+          <td><a href="#" class="req-id-link">REQ-26-0001</a></td>
+          <td>Apr 9, 8:02 AM</td>
+          <td class="td-patient">
+            <div class="patient-main">Hwang, Yeji</div>
+            <div class="patient-sub">PT-0000004</div>
+          </td>
+          <td><span class="priority-text">CBC, UA, LIPID</span></td>
+          <td><span class="sts-stat">STAT</span></td>
+          <td><span class="tat-completed">Completed</span></td>
+          <td><div class="actions-wrap"><button class="act-pdf">PDF <i class="bi bi-download"></i></button></div></td>
+        </tr>
+      
+        <tr>
+          <td><a href="#" class="req-id-link">REQ-26-0001</a></td>
+          <td>Apr 9, 8:02 AM</td>
+          <td class="td-patient">
+            <div class="patient-main">Pattrinite, Love</div>
+            <div class="patient-sub">PT-0000005</div>
+          </td>
+          <td><span class="priority-text">CBC, UA, LIPID</span></td>
+          <td><span class="sts-urgent">Urgent</span></td>
+          <td><span class="tat-completed">Completed</span></td>
+          <td><div class="actions-wrap"><button class="act-pdf">PDF <i class="bi bi-download"></i></button></div></td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    <div class="pagination-row">
+      <span>Showing 1 of 12 tests</span>
+      <div class="pg-btns">
+        <button class="pg-btn"><i class="bi bi-chevron-left" style="font-size:0.65rem;"></i></button>
+        <button class="pg-btn active">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <button class="pg-btn"><i class="bi bi-chevron-right" style="font-size:0.65rem;"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
