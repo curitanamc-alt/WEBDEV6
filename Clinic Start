@@ -9,7 +9,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: #f0f2f7; color: #1a2740; }
 
-    /* ── TOPBAR ── */
+    
     .topbar {
       position: fixed; top: 0; left: 0; right: 0; height: 52px;
       background: #5b7198; display: flex; align-items: center;
@@ -24,10 +24,10 @@
     }
     .topbar-search::placeholder { color: rgba(255,255,255,0.5); }
 
-    /* ── LAYOUT ── */
+
     .layout { display: flex; padding-top: 52px; min-height: 100vh; }
 
-    /* ── SIDEBAR ── */
+ 
     .sidebar {
       width: 190px; flex-shrink: 0; background: #4e6490;
       position: fixed; top: 52px; left: 0; bottom: 0;
@@ -67,14 +67,13 @@
     .sidebar-emblem { text-align: center; padding: 16px 0 20px; opacity: 0.2; }
     .sidebar-emblem svg { width: 52px; height: 52px; }
 
-    /* ── MAIN ── */
     .main {
       margin-left: 190px; flex: 1; display: flex;
       align-items: center; justify-content: center;
       padding: 40px 32px; min-height: calc(100vh - 52px);
     }
 
-    /* ── MODAL ── */
+ 
     .modal-outer { position: relative; }
     .modal {
       background: #fff; border-radius: 14px;
@@ -113,13 +112,13 @@
     .field-input.mono { font-family: 'DM Mono', monospace; font-size: 12.5px; }
     .field-input.readonly { background: #f7f9fc; color: #5b6f8a; cursor: default; }
 
-    /* ── SECTION ── */
+ 
     .sec-label {
       font-size: 9.5px; font-weight: 700; letter-spacing: 0.9px;
       text-transform: uppercase; color: #7a8eaa; margin-bottom: 9px;
     }
 
-    /* ── TAGS ── */
+
     .tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
     .tag {
       background: #3a4f72; color: #fff; font-size: 12px; font-weight: 600;
@@ -150,7 +149,7 @@
       padding: 5px 10px; font-size: 12px; font-family: inherit; cursor: pointer;
     }
 
-    /* ── PRIORITY ── */
+
     .priority-row { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
     .badge-stat {
       background: #e84057; color: #fff; font-size: 9px; font-weight: 800;
@@ -167,7 +166,7 @@
       font-family: inherit; resize: none; min-height: 40px;
     }
 
-    /* ── TECHNICIAN ── */
+
     .select-wrap { position: relative; width: 220px; margin-bottom: 26px; }
     .tech-select {
       width: 100%; appearance: none; background: #fff;
@@ -179,7 +178,6 @@
     .select-arrow { pointer-events: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #8a98b0; }
     .select-arrow svg { width: 14px; height: 14px; display: block; }
 
-    /* ── ACTIONS ── */
     .actions { display: flex; gap: 12px; }
     .btn {
       flex: 1; padding: 14px 18px; border-radius: 8px; font-size: 14px;
@@ -193,7 +191,7 @@
     .btn-confirm:hover { background: #2d3e5c; }
     .btn-confirm:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    /* ── SUCCESS BADGE ── */
+  
     .success-badge {
       position: absolute; bottom: -24px; right: -24px;
       width: 56px; height: 56px; background: #28c76f; border-radius: 50%;
@@ -202,7 +200,6 @@
     }
     .success-badge svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ── TOAST ── */
     .toast {
       position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
       background: #1a2740; color: #fff; padding: 14px 24px; border-radius: 10px;
@@ -215,7 +212,7 @@
     .toast.error .toast-icon { color: #e84057; }
     .toast-icon svg { width: 18px; height: 18px; display: block; }
 
-    /* ── OVERLAY (modal close) ── */
+
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(20,30,50,0.35);
       z-index: 150; display: flex; align-items: center; justify-content: center;
@@ -223,7 +220,7 @@
     }
     .modal-overlay.visible { opacity: 1; pointer-events: auto; }
 
-    /* ── CONFIRM OVERLAY ── */
+
     .confirm-overlay {
       position: absolute; inset: 0; background: rgba(255,255,255,0.96);
       border-radius: 14px; display: flex; flex-direction: column;
@@ -248,7 +245,7 @@
     }
     .confirm-close-btn:hover { background: #2d3e5c; }
 
-    /* validation */
+
     .field-input.invalid { border-color: #e84057; box-shadow: 0 0 0 3px rgba(232,64,87,0.1); }
     .error-msg { color: #e84057; font-size: 11px; margin-top: 4px; display: none; }
     .error-msg.show { display: block; }
@@ -256,7 +253,7 @@
 </head>
 <body>
 
-  <!-- TOPBAR -->
+
   <header class="topbar">
     <div class="logo">
       <svg viewBox="0 0 32 32" fill="none">
@@ -274,7 +271,7 @@
 
   <div class="layout">
 
-    <!-- SIDEBAR -->
+
     <nav class="sidebar">
       <div class="user-card">
         <div class="avatar">MC</div>
@@ -348,7 +345,7 @@
           <div class="modal-title">Start Processing &ndash; #REQ-2026001</div>
           <div class="modal-sub">Confirm details before marking as In Progress</div>
 
-          <!-- Patient Card -->
+    
           <div class="patient-card">
             <div class="field">
               <label>Patient</label>
@@ -390,7 +387,6 @@
             </div>
           </div>
 
-          <!-- Tests Ordered -->
           <div class="sec-label">Tests Ordered</div>
           <div class="tags" id="tagContainer">
             <span class="tag" data-name="CBC">CBC <span class="tag-remove" onclick="removeTag(this)">✕</span></span>
@@ -404,7 +400,7 @@
           </div>
           <div class="error-msg" id="errTags" style="margin-bottom:8px;">At least one test must be ordered.</div>
 
-          <!-- Priority & Notes -->
+    
           <div class="sec-label" style="margin-top:4px;">Priority &amp; Notes</div>
           <div class="priority-row">
             <span class="badge-stat">STAT</span>
@@ -414,7 +410,7 @@
             <textarea class="note-textarea" id="fieldNote" rows="2" placeholder="Add clinical notes here…">*Chest pain workup. Stat labs requested by ER.</textarea>
           </div>
 
-          <!-- Technician -->
+       
           <div class="sec-label">Assign to Technician</div>
           <div class="select-wrap">
             <select class="tech-select" id="fieldTech">
@@ -432,13 +428,13 @@
           </div>
           <div class="error-msg" id="errTech" style="margin-top:-20px; margin-bottom:14px;">Please assign a technician.</div>
 
-          <!-- Actions -->
+
           <div class="actions">
             <button class="btn btn-cancel" onclick="handleCancel()">Cancel</button>
             <button class="btn btn-confirm" id="confirmBtn" onclick="handleConfirm()">Confirm – Mark as Processing</button>
           </div>
 
-          <!-- Success Overlay -->
+
           <div class="confirm-overlay" id="successOverlay">
             <div class="confirm-check">
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -450,7 +446,7 @@
 
         </div>
 
-        <!-- Green badge -->
+
         <div class="success-badge">
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
@@ -458,7 +454,7 @@
     </main>
   </div>
 
-  <!-- Toast -->
+
   <div class="toast" id="toast">
     <span class="toast-icon" id="toastIcon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -469,18 +465,17 @@
   </div>
 
   <script>
-    /* ── NAV ── */
+
     function setNav(el) {
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       el.classList.add('active');
     }
 
-    /* ── SIGN OUT ── */
+
     function handleSignOut() {
       showToast('You have been signed out.', 'success');
     }
 
-    /* ── TAG MANAGEMENT ── */
     function removeTag(btn) {
       btn.closest('.tag').remove();
     }
@@ -511,7 +506,7 @@
       }
     }
 
-    /* ── VALIDATE ── */
+
     function validate() {
       let ok = true;
       const required = [
@@ -533,13 +528,13 @@
         }
       });
 
-      // Tags
+
       const tags = document.querySelectorAll('#tagContainer .tag');
       const errTags = document.getElementById('errTags');
       if (tags.length === 0) { errTags.classList.add('show'); ok = false; }
       else { errTags.classList.remove('show'); }
 
-      // Technician
+
       const tech = document.getElementById('fieldTech');
       const errTech = document.getElementById('errTech');
       if (!tech.value) { errTech.classList.add('show'); ok = false; }
@@ -548,7 +543,7 @@
       return ok;
     }
 
-    /* clear validation on input */
+ 
     document.querySelectorAll('.field-input').forEach(el => {
       el.addEventListener('input', () => {
         el.classList.remove('invalid');
@@ -558,7 +553,7 @@
       });
     });
 
-    /* ── CONFIRM ── */
+
     function handleConfirm() {
       if (!validate()) {
         showToast('Please fill in all required fields.', 'error');
@@ -570,7 +565,7 @@
       document.getElementById('successOverlay').classList.add('visible');
     }
 
-    /* ── CANCEL / RESET ── */
+
     function handleCancel() {
       if (confirm('Discard changes and close this request?')) {
         showToast('Request cancelled.', 'success');
@@ -583,7 +578,7 @@
       showToast('Request marked as Processing!', 'success');
     }
 
-    /* ── TOAST ── */
+
     let toastTimer;
     function showToast(msg, type = 'success') {
       const toast = document.getElementById('toast');
