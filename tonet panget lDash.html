@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CLINIQ – Clinic Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="lDash.css"/>
+</head>
+<body>
+
+<!-- TOP HEADER -->
+<header class="top-header">
+  <div class="brand">
+    <img src="Cliniq Logo.png" alt="CLINIQ Logo" style="height:30px; width:auto;"/>
+    <span class="brand-name">CLINIQ</span>
+  </div>
+  <input class="header-search" type="search" placeholder="Search tests, patients, requests…" id="headerSearch"/>
+  <div class="header-actions">
+    <button class="header-btn" onclick="openModal('notif-modal')" title="Notifications">
+      🔔<span class="notif-badge" id="notifBadge">3</span>
+    </button>
+    <button class="header-btn" onclick="openModal('profile-modal')" title="Profile">👤</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="user-card">
+      <div class="user-avatar">SL</div>
+      <div class="user-info">
+        <div class="name">St. Luke's Clinic</div>
+        <div class="role">Clinic User</div>
+      </div>
+    </div>
+
+    <button class="nav-item active" onclick="setActive(this)">
+      <span class="nav-icon">📊</span><span>Dashboard</span>
+    </button>
+    <button class="nav-item" onclick="setActive(this)">
+      <span class="nav-icon">📋</span><span>Lab Requests</span>
+    </button>
+    <button class="nav-item" onclick="setActive(this)">
+      <span class="nav-icon">💳</span><span>Billing</span>
+    </button>
+    <button class="nav-item" onclick="setActive(this)">
+      <span class="nav-icon">📈</span><span>Analytics</span>
+    </button>
+
+    <div class="sidebar-footer">
+      <button class="signout-btn" onclick="openModal('signout-modal')">
+        <span class="nav-icon">🚪</span><span>Sign Out</span>
+      </button>
+      <div class="brand-bottom">
+        <img src="Cliniq Logo.png" alt="CLINIQ Logo" style="height: 100px; width:auto; opacity:1;"/>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="greeting">
+      <h1>Good Morning</h1>
+      <p class="greeting-sub" id="greetDate">Loading date… · Clinic Dashboard</p>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-icon-wrap icon-green">📋</div>
+        <div class="stat-label">Total Requests (Apr)</div>
+        <div class="stat-value">0</div>
+        <div class="stat-sub ok">0 results ready</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap icon-teal">⏰</div>
+        <div class="stat-label">Pending Queue</div>
+        <div class="stat-value">0</div>
+        <div class="stat-sub ok">Avg. TAT 4.2h</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap icon-red">⚠️</div>
+        <div class="stat-label">Flagged Results</div>
+        <div class="stat-value" style="color:var(--red);">0</div>
+        <div class="stat-sub warn">Needs review</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap icon-blue">💰</div>
+        <div class="stat-label">Outstanding Balance</div>
+        <div class="stat-value">0</div>
+        <div class="stat-sub due">April 2026 – due</div>
+      </div>
+    </div>
+
+    <!-- ALERT BANNER -->
+    <div class="alert-banner">
+      <div class="alert-dot"></div>
+      <div class="alert-text">
+        <strong>12 lab results ready for download</strong>
+        <span>Completed by MetroMed Diagnostics · 3 flagged with abnormal values</span>
+      </div>
+      <button class="btn-alert" onclick="showToast('Opening results…','success')">View Results</button>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-title">Most requested tests</div>
+        <div class="chart-sub">(per month to)</div>
+        <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Request Status Overview</div>
+        <div class="chart-sub">Completed · Processing · Pending — Jan–Mar</div>
+        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MODALS -->
+
+<!-- Notifications -->
+<div class="modal-overlay" id="notif-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('notif-modal')">✕</button>
+    <h2>🔔 Notifications</h2>
+    <p>You have <strong>3</strong> unread alerts.</p>
+    <ul style="font-size:13.5px;color:var(--text-mid);line-height:2.2;padding-left:18px">
+      <li>⚠️ 3 results flagged with abnormal values</li>
+      <li>✅ 12 lab results ready for download</li>
+      <li>💳 Outstanding balance due – April 2026</li>
+    </ul>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('notif-modal')">Dismiss</button>
+      <button class="btn btn-primary" onclick="markAllRead()">Mark all read</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('profile-modal')">✕</button>
+    <h2>👤 Profile</h2>
+    <p>Update your account details below.</p>
+    <input class="modal-input" type="text" value="St. Luke's Clinic" placeholder="Clinic Name"/>
+    <input class="modal-input" type="email" value="stlukes@cliniq.ph" placeholder="Email"/>
+    <input class="modal-input" type="text" value="Clinic User" placeholder="Role"/>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('profile-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('profile-modal');showToast('Profile updated!','success')">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Out -->
+<div class="modal-overlay" id="signout-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('signout-modal')">✕</button>
+    <h2>🚪 Sign Out</h2>
+    <p>Are you sure you want to sign out of CLINIQ?</p>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal('signout-modal')">Cancel</button>
+      <button class="btn btn-danger" onclick="closeModal('signout-modal');showToast('Signed out. Goodbye!','info')">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<script src="lDash.js"></script>
+</body>
+</html>
