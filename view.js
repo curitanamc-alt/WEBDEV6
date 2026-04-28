@@ -1,4 +1,3 @@
-/* ── Field edit logic ── */
 function startEdit(field, type) {
   const fv = document.getElementById('fv-' + field);
   const current = fv.textContent.trim();
@@ -39,7 +38,6 @@ function commitField(fv, value, field, type) {
   fv.onclick = () => startEdit(field, type);
 }
 
-/* ── Notes logic ── */
 function editNotes() {
   const display = document.getElementById('notesDisplay');
   const editor  = document.getElementById('notesEditor');
@@ -67,7 +65,6 @@ function cancelNotes() {
   document.getElementById('notesActions').style.display = 'none';
 }
 
-/* ── Mark as Completed ── */
 function markComplete() {
   document.getElementById('completeModal').classList.add('open');
 }
@@ -97,7 +94,6 @@ function doMarkComplete() {
   btn.style.cursor  = 'not-allowed';
 }
 
-/* ── Close / X modal ── */
 function openCloseModal() {
   document.getElementById('closeModal').classList.add('open');
 }
@@ -119,7 +115,6 @@ document.getElementById('closeModal').addEventListener('click', function(e) {
   if (e.target === this) this.classList.remove('open');
 });
 
-/* ── Complete modal ── */
 document.getElementById('completeModalCancel').addEventListener('click', () => {
   document.getElementById('completeModal').classList.remove('open');
 });
