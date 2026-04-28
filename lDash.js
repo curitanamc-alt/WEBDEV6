@@ -3,7 +3,24 @@ const d = new Date();
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 document.getElementById('greetDate').textContent =
-  `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} · LabCenter Dashboard`;
+  `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} · Clinic Dashboard`;
+
+// ── Shared Data Variables ──
+const completedData  = [142, 168, 155];
+const processingData = [38, 45, 41];
+const pendingData    = [24, 19, 28];
+const flaggedResults = 3;
+const outstandingBal = '₱12,400';
+
+// ── Stat Cards ──
+document.querySelector('.stat-grid .stat-card:nth-child(1) .stat-value').textContent =
+  completedData[2] + processingData[2] + pendingData[2];
+document.querySelector('.stat-grid .stat-card:nth-child(2) .stat-value').textContent =
+  pendingData[2];
+document.querySelector('.stat-grid .stat-card:nth-child(3) .stat-value').textContent =
+  flaggedResults;
+document.querySelector('.stat-grid .stat-card:nth-child(4) .stat-value').textContent =
+  outstandingBal;
 
 // ── Modal helpers ──
 function openModal(id) { document.getElementById(id).classList.add('open'); }
@@ -43,10 +60,10 @@ const pieCtx = document.getElementById('pieChart').getContext('2d');
 new Chart(pieCtx, {
   type: 'pie',
   data: {
-    labels: ['Sales', 'Finance', 'Marketing', 'HR'],
+    labels: ['CBC', 'Urinalysis', 'Lipid Panel', 'Blood Glucose', 'Thyroid (TSH)'],
     datasets: [{
-      data: [0, 0, 0, 0],
-      backgroundColor: ['#4a6fa5', '#7aa3e5', '#f1c40f', '#a0b4d4'],
+      data: [38, 22, 17, 14, 9],
+      backgroundColor: ['#4caf87', '#6dc4a0', '#a8dfc9', '#3dba8c', '#b2ead6'],
       borderColor: '#fff',
       borderWidth: 2
     }]
@@ -59,7 +76,7 @@ new Chart(pieCtx, {
         position: 'left',
         labels: {
           font: { size: 11, family: "'DM Sans',sans-serif" },
-          color: '#4a5e7a',
+          color: '#3a6b55',
           boxWidth: 12,
           padding: 10
         }
@@ -74,8 +91,9 @@ new Chart(barCtx, {
   data: {
     labels: ['Jan', 'Feb', 'Mar'],
     datasets: [
-      { label: 'Desktop', data: [0, 0, 0], backgroundColor: '#2d4a7a', borderRadius: 5, barPercentage: 0.4 },
-      { label: 'Mobile',  data: [0, 0, 0], backgroundColor: '#a0b4d4', borderRadius: 5, barPercentage: 0.4 }
+      { label: 'Completed',  data: completedData,  backgroundColor: '#4caf87', borderRadius: 5, barPercentage: 0.4 },
+      { label: 'Processing', data: processingData, backgroundColor: '#a8dfc9', borderRadius: 5, barPercentage: 0.4 },
+      { label: 'Pending',    data: pendingData,    backgroundColor: '#e8c84a', borderRadius: 5, barPercentage: 0.4 }
     ]
   },
   options: {
@@ -86,15 +104,15 @@ new Chart(barCtx, {
         position: 'top',
         labels: {
           font: { size: 11, family: "'DM Sans',sans-serif" },
-          color: '#4a5e7a',
+          color: '#3a6b55',
           boxWidth: 10,
           padding: 12
         }
       }
     },
     scales: {
-      x: { grid: { display: false }, ticks: { font: { family: "'DM Sans'" }, color: '#8a9ab8' } },
-      y: { grid: { color: '#eef0f5' }, ticks: { font: { family: "'DM Sans'" }, color: '#8a9ab8' }, max: 100 }
+      x: { grid: { display: false }, ticks: { font: { family: "'DM Sans'" }, color: '#7aaa93' } },
+      y: { grid: { color: '#e0f5ec' }, ticks: { font: { family: "'DM Sans'" }, color: '#7aaa93' }, beginAtZero: true }
     }
   }
 });

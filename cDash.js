@@ -5,6 +5,18 @@ const months = ['January','February','March','April','May','June','July','August
 document.getElementById('greetDate').textContent =
   `${days[d.getDay()]}, ${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()} · LabCenter Dashboard`;
 
+// ── Shared Data Variables ──
+const completedData  = [142, 168, 155];
+const processingData = [38, 45, 41];
+const pendingData    = [24, 19, 28];
+const urgentCount    = 3;
+
+// ── Stat Cards ──
+document.getElementById('totalReq').textContent       = completedData[2] + processingData[2] + pendingData[2];
+document.getElementById('pendingQ').textContent       = pendingData[2];
+document.getElementById('completedToday').textContent = completedData[2];
+document.getElementById('urgentCount').textContent    = urgentCount;
+
 // ── Modal helpers ──
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
@@ -43,10 +55,10 @@ const pieCtx = document.getElementById('pieChart').getContext('2d');
 new Chart(pieCtx, {
   type: 'pie',
   data: {
-    labels: ['Sales', 'Finance', 'Marketing', 'HR'],
+    labels: ['CBC', 'Urinalysis', 'Lipid Panel', 'Blood Glucose', 'Thyroid (TSH)'],
     datasets: [{
-      data: [0, 0, 0, 0],
-      backgroundColor: ['#4a6fa5', '#7aa3e5', '#f1c40f', '#a0b4d4'],
+      data: [38, 22, 17, 14, 9],
+      backgroundColor: ['#4a6fa5', '#7aa3e5', '#a8c2e0', '#c9d9f0', '#5d77a6'],
       borderColor: '#fff',
       borderWidth: 2
     }]
@@ -74,8 +86,9 @@ new Chart(barCtx, {
   data: {
     labels: ['Jan', 'Feb', 'Mar'],
     datasets: [
-      { label: 'Desktop', data: [0, 0, 0], backgroundColor: '#2d4a7a', borderRadius: 5, barPercentage: 0.4 },
-      { label: 'Mobile',  data: [0, 0, 0], backgroundColor: '#a0b4d4', borderRadius: 5, barPercentage: 0.4 }
+      { label: 'Completed',  data: completedData,  backgroundColor: '#4a6fa5', borderRadius: 5, barPercentage: 0.4 },
+      { label: 'Processing', data: processingData, backgroundColor: '#a8c2e0', borderRadius: 5, barPercentage: 0.4 },
+      { label: 'Pending',    data: pendingData,    backgroundColor: '#e0c97a', borderRadius: 5, barPercentage: 0.4 }
     ]
   },
   options: {
@@ -94,7 +107,7 @@ new Chart(barCtx, {
     },
     scales: {
       x: { grid: { display: false }, ticks: { font: { family: "'DM Sans'" }, color: '#8a9ab8' } },
-      y: { grid: { color: '#eef0f5' }, ticks: { font: { family: "'DM Sans'" }, color: '#8a9ab8' }, max: 100 }
+      y: { grid: { color: '#eef0f5' }, ticks: { font: { family: "'DM Sans'" }, color: '#8a9ab8' }, beginAtZero: true }
     }
   }
 });
