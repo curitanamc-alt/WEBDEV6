@@ -386,7 +386,6 @@
     }
     .btn-complete:hover { background: #36c637; }
 
-    /* ── Confirm modal ── */
     .confirm-modal {
       display: none;
       position: fixed;
@@ -560,7 +559,6 @@
   </div>
 </div>
 
-<!-- Close / X confirmation modal -->
 <div class="confirm-modal" id="closeModal">
   <div class="confirm-box">
     <h6>Close this request?</h6>
@@ -572,7 +570,6 @@
   </div>
 </div>
 
-<!-- Mark as Completed confirmation modal -->
 <div class="confirm-modal" id="completeModal">
   <div class="confirm-box">
     <h6>Mark as Completed?</h6>
@@ -587,7 +584,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 
-  /* ── Existing field-edit logic (unchanged) ── */
   function startEdit(field, type) {
     const fv = document.getElementById('fv-' + field);
     const current = fv.textContent.trim();
@@ -656,18 +652,15 @@
   }
 
   function markComplete() {
-    // Open confirm modal instead of acting immediately
     document.getElementById('completeModal').classList.add('open');
   }
 
   function doMarkComplete() {
-    // Badge
     const badge = document.getElementById('statusBadge');
     badge.textContent       = 'Completed';
     badge.style.background  = '#d4f5d4';
     badge.style.color       = '#1a7a1a';
 
-    // Timeline
     document.getElementById('dot1').classList.replace('dot-active', 'dot-done');
     document.getElementById('dot2').classList.replace('dot-pending', 'dot-active');
     document.getElementById('step1title').textContent = 'Processing complete';
@@ -679,20 +672,17 @@
       now.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }) +
       ', ' + now.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
 
-    // Disable button
     const btn = document.getElementById('btnComplete');
     btn.disabled       = true;
     btn.style.opacity  = '0.6';
     btn.style.cursor   = 'not-allowed';
   }
 
-  /* ── Close / X button → show modal ── */
   function openCloseModal() {
     document.getElementById('closeModal').classList.add('open');
   }
 
   function doClose() {
-    // Hide the card to simulate closing/navigating away
     document.getElementById('requestCard').style.display = 'none';
     document.getElementById('closeModal').classList.remove('open');
   }
@@ -705,12 +695,10 @@
   });
   document.getElementById('closeModalConfirm').addEventListener('click', doClose);
 
-  // Close modal on backdrop click
   document.getElementById('closeModal').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
   });
 
-  /* ── Mark Complete modal ── */
   document.getElementById('completeModalCancel').addEventListener('click', () => {
     document.getElementById('completeModal').classList.remove('open');
   });
