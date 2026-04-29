@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLINIQ | Connect Seamlessly</title>
+    <style>
+        :root {
+            --primary-blue: #6a89bc;
+            --dark-blue: #5471a1;
+            --text-dark: #4a4a4a;
+            --text-muted: #7a7a7a;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            padding: 15px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 60px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 800;
+            font-size: 24px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            height: 32px;
+            margin-right: 10px;
+            filter: brightness(0) invert(1); 
+        }
+
+        nav {
+            display: flex;
+            gap: 35px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero-container {
+            display: flex;
+            padding: 80px 8%;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-text {
+            flex: 0 0 55%;
+            text-align: left;
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .badge {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            font-size: 48px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 700;
+            max-width: 500px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 17px;
+            max-width: 520px;
+            margin-bottom: 45px;
+        }
+
+        .login-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 16px 70px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(106, 137, 188, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .login-btn:hover {
+            background-color: var(--dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 137, 188, 0.5);
+        }
+
+        .hero-graphic {
+            flex: 0 0 35%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column; text-align: center; }
+            .hero-text { flex: 0 0 100%; order: 2; }
+            .hero-graphic { flex: 0 0 100%; order: 1; margin-bottom: 30px; justify-content: center; }
+            h1 { font-size: 32px; margin: 0 auto 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div onclick="showPage('home')" class="logo-box">
+            <img src="logologo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            CLINIQ
+        </div>
+        <nav>
+            <a onclick="showPage('how')">How it works</a>
+            <a onclick="showPage('clinics')">For Clinics</a>
+            <a onclick="showPage('labs')">For Laboratories</a>
+        </nav>
+    </header>
+
+    <main class="hero-container">
+        <section class="hero-text" id="heroText">
+            <!-- Content injects here[cite: 1] -->
+        </section>
+
+        <section class="hero-graphic">
+            <img src="logologo.png" alt="CLINIQ Platform" class="hero-img">
+        </section>
+    </main>
+
+    <script>
+        const content = {
+            home: {
+                badge: "Digital Lab Request Platform",
+                title: "Connect clinics to diagnostic centers seamlessly.",
+                p: "CLINIQ bridges private clinics and diagnostic laboratories — from lab requests to digital results, with real-time tracking and monthly billing, all in one secure platform."
+            },
+            how: {
+                badge: "Our Process",
+                title: "Efficiency in every step.",
+                p: "Our automated workflow manages the entire lifecycle of a lab request. From digital ordering at the clinic level to automated result delivery, we ensure data integrity and speed at every touchpoint.[cite: 1]"
+            },
+            clinics: {
+                badge: "Clinic Solutions",
+                title: "Better tools for better care.",
+                p: "Clinics can now send requests to any partner laboratory instantly. Monitor the status of samples, receive verified digital results directly to patient files, and simplify your end-of-month reconciliation.[cite: 1]"
+            },
+            labs: {
+                badge: "Laboratory Tools",
+                title: "Streamline your intake.",
+                p: "Reduce manual entry errors by receiving clean, digital data directly from referring physicians. Our dashboard helps you manage high volumes of requests and provides clear billing trails for your clinic partners.[cite: 1]"
+            }
+        };
+
+        function showPage(pageKey) {
+            const data = content[pageKey];
+            const container = document.getElementById('heroText');
+            
+            // Apply a quick fade effect[cite: 1]
+            container.style.opacity = 0;
+            
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="badge">${data.badge}</div>
+                    <h1>${data.title}</h1>
+                    <p>${data.p}</p>
+                    <button class="login-btn">LOGIN</button>
+                `;
+                container.style.opacity = 1;
+            }, 200);
+        }
+
+        // Initialize Home Page[cite: 1]
+        showPage('home');
+    </script>
+
+</body>
+</html>
